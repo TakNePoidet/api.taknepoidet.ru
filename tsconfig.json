@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"sourceMap": false,
+		"allowJs": false,
+		"declaration": false,
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"experimentalDecorators": true,
+		"rootDir": "./src",
+		"baseUrl": ".",
+		"outDir": "./app",
+	},
+	"include": ["./src/", "test", "example"],
+	"exclude": ["dist"]
+}
