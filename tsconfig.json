@@ -10,7 +10,7 @@
 		"experimentalDecorators": true,
 		"rootDir": "./src",
 		"baseUrl": ".",
-		"outDir": "./app",
+		"outDir": "./app"
 	},
 	"include": ["./src/", "test", "example"],
 	"exclude": ["dist"]

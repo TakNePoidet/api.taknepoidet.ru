@@ -1,7 +1,7 @@
 import { Router } from 'fastify-route-group';
 import { FastifyInstance, FastifyReply } from 'fastify';
-import { SocialController } from '../controllers/SocialController';
-import { ApiExceptions } from '../exceptions/ApiExceptions';
+import { SocialController } from '../controllers/social-controller';
+import { ApiExceptions } from '../exceptions/api-exceptions';
 
 function errorHandler(error: Error | ApiExceptions, _, reply: FastifyReply) {
 	let errorMessage = error.message;
@@ -10,19 +10,18 @@ function errorHandler(error: Error | ApiExceptions, _, reply: FastifyReply) {
 
 	if (error instanceof ApiExceptions) {
 		errorMessage = error.message;
-		errorCode = error.httpCode;
+		errorCode = error.code;
 		httpStatus = error.httpCode;
 	}
-	reply
-		.send({
-			response: 'error',
-			errorMessage,
-			errorCode
-		})
-		.status(httpStatus);
+
+	reply.code(httpStatus).send({
+		response: 'error',
+		errorMessage,
+		errorCode
+	});
 }
 
-export function register(server: FastifyInstance) {
+export function register(server: FastifyInstance): void {
 	const router = new Router(server);
 
 	router.namespace('methods', () => {

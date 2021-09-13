@@ -1,8 +1,9 @@
-import fastify, {FastifyInstance} from "fastify";
-import {register} from "./router/web";
+import fastify, { FastifyInstance } from 'fastify';
+import { register } from './router/web';
 
-export async function app(): Promise<FastifyInstance> {
+export function createServer(): FastifyInstance {
 	const server = fastify();
+
 	register(server);
-	return server
+	return server;
 }

@@ -1,8 +1,9 @@
-import {app} from "./app";
-import {APP_SERVER_PORT} from './constant';
+import { createServer } from './app';
+import { APP_SERVER_PORT } from './constant';
 
 async function bootstrap() {
-	const server = await app();
+	const server = createServer();
+
 	await server.listen(APP_SERVER_PORT, (_, address) => console.log(`server listening on ${address}`));
 }
 

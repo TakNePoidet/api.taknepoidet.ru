@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { ApiExceptions } from '../exceptions/ApiExceptions';
-import { SocialServices } from '../services/SocialServices';
+import { ApiExceptions } from '../exceptions/api-exceptions';
+import { SocialServices } from '../services/social-services';
 
 export class SocialController {
-	static getAll(_, reply: FastifyReply) {
+	static getAll(_: FastifyRequest, reply: FastifyReply): void {
 		reply.send({
 			response: 'ok',
 			items: new SocialServices().getAll()
@@ -17,7 +17,7 @@ export class SocialController {
 			};
 		}>,
 		reply: FastifyReply
-	) {
+	): void {
 		const { key } = request.query;
 
 		if (!key || typeof key !== 'string') {
