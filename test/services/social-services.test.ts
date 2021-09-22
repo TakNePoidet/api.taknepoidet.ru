@@ -80,7 +80,7 @@ describe('SocialServices', () => {
 		});
 
 		test('All values', () => {
-			const result = socialServices.getAll();
+			const result = socialServices.getList();
 
 			expect(result).not.toBeNull();
 			expect(Array.isArray(result)).toBe(true);

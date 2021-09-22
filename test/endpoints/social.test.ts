@@ -1,28 +1,28 @@
 import { createServer } from '../../src/app';
 import { SocialServices } from '../../src/services/social-services';
 
-const mockSocialServicesGetAll = jest.fn();
+const mockSocialServicesGetList = jest.fn();
 const mockSocialServicesGetItem = jest.fn();
 
 jest.mock('../../src/services/social-services', () => ({
 	SocialServices: jest.fn().mockImplementation(() => ({
-		getAll: mockSocialServicesGetAll,
+		getList: mockSocialServicesGetList,
 		getItem: mockSocialServicesGetItem
 	}))
 }));
 
 beforeEach(() => {
-	mockSocialServicesGetAll.mockClear();
+	mockSocialServicesGetList.mockClear();
 	mockSocialServicesGetItem.mockClear();
 });
 
 describe('Social networking techniques', () => {
 	const app = createServer();
 
-	describe('/social.getAll', () => {
+	describe('/social.getList', () => {
 		test('[GET]', async () => {
-			mockSocialServicesGetAll.mockImplementationOnce(() => []);
-			const response = await app.inject({ method: 'GET', url: '/methods/social.getAll' });
+			mockSocialServicesGetList.mockImplementationOnce(() => []);
+			const response = await app.inject({ method: 'GET', url: '/methods/social.getList' });
 
 			expect(response.statusCode).toBe(200);
 			const result = JSON.parse(response.payload);
@@ -32,7 +32,7 @@ describe('Social networking techniques', () => {
 		});
 
 		test('[POST]', async () => {
-			const response = await app.inject({ method: 'POST', url: '/methods/social.getAll' });
+			const response = await app.inject({ method: 'POST', url: '/methods/social.getList' });
 
 			expect(response.statusCode).toBe(404);
 		});
