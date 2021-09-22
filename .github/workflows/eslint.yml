@@ -2,8 +2,10 @@ name: Eslint
 
 on:
   pull_request:
+    branches-ignore:
+      - master
   push:
-    branches:
+    branches-ignore:
       - master
 jobs:
   build:
@@ -15,5 +17,5 @@ jobs:
           node-version: 16
       - name: Установка зависимостей
         run: npm ci
-      - name: Тестирование
-        run: npm test
+      - name: Линтинг
+        run: npm run lint

@@ -1,0 +1,42 @@
+name: Deploy
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      # Установка зависимостей
+      - name: Установка зависимостей
+        run: npm ci
+
+      # Линтинг
+      - name: Линтинг
+        run: npm run lint
+
+      # Тестирование
+      - name: Тестирование
+        run: npm test
+
+      # Деплой
+      - name: Деплой
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ~/.actions/api.taknepoidet.xyz
+            ./update.sh
