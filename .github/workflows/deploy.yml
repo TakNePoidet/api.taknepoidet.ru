@@ -39,4 +39,4 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/.actions/api.taknepoidet.xyz
-            ./update.sh
+            bash ./update.sh
