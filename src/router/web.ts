@@ -26,7 +26,7 @@ export function register(server: FastifyInstance): void {
 
 	router.namespace('methods', () => {
 		router.prefix('social.', () => {
-			router.get('getAll', { errorHandler }, SocialController.getAll);
+			router.get('getList', { errorHandler }, SocialController.getList);
 			router.get(
 				'getItem',
 				{

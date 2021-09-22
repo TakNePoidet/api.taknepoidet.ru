@@ -19,7 +19,7 @@ export class SocialServices {
 		}
 	}
 
-	getAll(): SocialItem[] {
+	getList(): SocialItem[] {
 		return this.socialList;
 	}
 

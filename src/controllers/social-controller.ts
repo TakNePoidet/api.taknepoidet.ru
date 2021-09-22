@@ -3,10 +3,10 @@ import { ApiExceptions } from '../exceptions/api-exceptions';
 import { SocialServices } from '../services/social-services';
 
 export class SocialController {
-	static getAll(_: FastifyRequest, reply: FastifyReply): void {
+	static getList(_: FastifyRequest, reply: FastifyReply): void {
 		reply.send({
 			response: 'ok',
-			items: new SocialServices().getAll()
+			items: new SocialServices().getList()
 		});
 	}
 
