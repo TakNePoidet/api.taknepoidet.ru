@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { ApiExceptions } from '../exceptions/api-exceptions';
-import { SocialServices } from '../services/social-services';
+import { SocialServices } from '../../services/social-services';
+import { ApiExceptions } from '../../exceptions/api-exceptions';
 
 export class SocialController {
 	static getList(_: FastifyRequest, reply: FastifyReply): void {

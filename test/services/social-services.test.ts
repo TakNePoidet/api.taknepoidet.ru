@@ -1,19 +1,26 @@
-import fs from 'fs';
-import path from 'path';
-import { mocked } from 'ts-jest/utils';
-import { SocialServices } from '../../src/services/social-services';
+// eslint-disable-next-line import/order
+import { mockPathJoin, mockReadFileSync } from '../setup';
 
-jest.mock('fs');
-jest.mock('path');
+jest.mock('../../src/utility/meta.ts', () => ({
+	getMetaGlobal() {
+		return { __dirname: './test', __filename: './test/test.ts' };
+	}
+}));
 
 const methods = {
 	socialList: 'socialList'
 };
 
+import { SocialServices } from '../../src/services/social-services';
+
+beforeEach(() => {
+	mockReadFileSync.mockClear();
+	mockPathJoin.mockClear();
+});
 describe('SocialServices', () => {
 	describe('Reading json file', () => {
 		test('Successfully', () => {
-			const value = JSON.stringify([
+			const value = [
 				{
 					key: 'vk',
 					link: 'https://vk.com/taknepoidet',
@@ -21,29 +28,23 @@ describe('SocialServices', () => {
 					name: 'VK',
 					types: ['social', 'messenger']
 				}
-			]);
+			];
+
+			mockReadFileSync.mockReturnValue(JSON.stringify(value));
+			mockPathJoin.mockReturnValue('./');
 			const socialServices = new SocialServices();
 
-			mocked(fs.readFileSync as jest.Mock).mockReturnValue(value);
-			mocked(path.join as jest.Mock).mockReturnValue('./');
-			expect(socialServices[methods.socialList]).toEqual([
-				{
-					key: 'vk',
-					link: 'https://vk.com/taknepoidet',
-					nik: '@taknepoidet',
-					name: 'VK',
-					types: ['social', 'messenger']
-				}
-			]);
+			expect(socialServices[methods.socialList]).toEqual(value);
+			expect(mockReadFileSync).toBeCalledTimes(1);
 		});
 
 		test('Error', () => {
 			const socialServices = new SocialServices();
 
-			mocked(fs.readFileSync as jest.Mock).mockImplementation(() => {
+			mockReadFileSync.mockImplementation(() => {
 				throw new Error();
 			});
-			mocked(path.join as jest.Mock).mockReturnValue('./');
+			mockPathJoin.mockReturnValue('./');
 			expect(socialServices[methods.socialList]).toEqual([]);
 		});
 	});

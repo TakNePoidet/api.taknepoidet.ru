@@ -2,7 +2,7 @@ module.exports = {
 	extends: ['@taknepoidet-config/eslint-config'],
 	overrides: [
 		{
-			files: ['*.test.ts'],
+			files: ['*.test.ts', 'setup.ts'],
 			plugins: ['jest'],
 			rules: {
 				'jest/no-disabled-tests': 'warn',
@@ -13,6 +13,14 @@ module.exports = {
 			},
 			env: {
 				'jest/globals': true
+			}
+		},
+		{
+			files: ['*.ts'],
+			parser: '@typescript-eslint/parser',
+			parserOptions: {
+				sourceType: 'module',
+				project: ['tsconfig.json', './tsconfig.json']
 			}
 		}
 	]

@@ -1,5 +1,5 @@
+import { APP_SERVER_PORT } from '../constant';
 import { createServer } from './app';
-import { APP_SERVER_PORT } from './constant';
 
 async function bootstrap() {
 	const server = createServer();

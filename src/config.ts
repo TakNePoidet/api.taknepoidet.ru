@@ -1,4 +1,6 @@
+import { findUp } from 'find-up';
 import * as dotenv from 'dotenv';
-import findUp from 'find-up';
 
-dotenv.config({ path: findUp.sync('.env') });
+findUp('.env').then((env) => {
+	dotenv.config({ path: env });
+});

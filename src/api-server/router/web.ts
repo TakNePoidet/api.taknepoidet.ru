@@ -1,7 +1,8 @@
 import { Router } from 'fastify-route-group';
 import { FastifyInstance, FastifyReply } from 'fastify';
 import { SocialController } from '../controllers/social-controller';
-import { ApiExceptions } from '../exceptions/api-exceptions';
+import { PortfolioController } from '../controllers/portfolio-controller';
+import { ApiExceptions } from '../../exceptions/api-exceptions';
 
 function errorHandler(error: Error | ApiExceptions, _, reply: FastifyReply) {
 	let errorMessage = error.message;
@@ -38,6 +39,22 @@ export function register(server: FastifyInstance): void {
 					}
 				},
 				SocialController.getItem
+			);
+		});
+
+		router.prefix('portfolio.', () => {
+			router.get('getSiteList', { errorHandler }, PortfolioController.getSiteList);
+			router.get(
+				'getSiteItem',
+				{
+					errorHandler,
+					schema: {
+						querystring: {
+							key: { type: 'string' }
+						}
+					}
+				},
+				PortfolioController.getSiteItem
 			);
 		});
 	});

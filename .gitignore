@@ -3,4 +3,5 @@ app/
 node_modules
 coverage
 .idea
-submodule
+.run
+.DS_Store
