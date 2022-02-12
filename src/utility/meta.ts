@@ -1,11 +1,9 @@
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import path from 'path';
 
 export function getMetaGlobal() {
-	// eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
-	const __filename = fileURLToPath(import.meta.url);
-	// eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
-	const __dirname = dirname(__filename);
+	const filename = fileURLToPath(import.meta.url);
+	const dirname = path.dirname(filename);
 
-	return { __filename, __dirname };
+	return { filename, dirname };
 }

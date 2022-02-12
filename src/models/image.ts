@@ -1,3 +1,3 @@
-import { FileImage } from '../utility';
+import { FileImage } from '../types/files';
 
 export type Image = FileImage;

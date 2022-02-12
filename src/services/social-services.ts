@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import { PATH_DATA } from '../constant';
+import { Constant } from '../constant';
 
 export interface SocialItem {
 	key: string;
@@ -13,7 +13,7 @@ export interface SocialItem {
 export class SocialServices {
 	private get socialList(): SocialItem[] {
 		try {
-			return JSON.parse(fs.readFileSync(path.join(PATH_DATA, '../data', 'social-list.json'), 'utf8'));
+			return JSON.parse(fs.readFileSync(path.join(Constant.PathData, '../data', 'social-list.json'), 'utf8'));
 		} catch (e) {
 			return [];
 		}

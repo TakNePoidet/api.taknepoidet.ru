@@ -1,3 +1,4 @@
+import { Block } from '../types/blocks';
 import { Image } from './image';
 
 export interface ModelSitePortfolio {
@@ -5,6 +6,7 @@ export interface ModelSitePortfolio {
 	title: string;
 	tags: string[];
 	description: string;
+	text: Block[];
 	link: string;
 	color: string | null;
 	icon: Image;

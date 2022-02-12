@@ -13,8 +13,8 @@ const plugins = [
 	json(),
 	commonjs(),
 	typescript({
-		tsconfig: './tsconfig.json',
-		exclude: ['test/**', 'example/**']
+		tsconfig: production ? './tsconfig.production.json' : './tsconfig.json',
+		exclude: ['test/**']
 	})
 ];
 
@@ -27,7 +27,8 @@ export default [
 		output: [
 			{
 				file: './app/api.js',
-				format: 'es'
+				format: 'es',
+				sourcemap: !production
 			}
 		],
 		plugins
@@ -37,7 +38,8 @@ export default [
 		output: [
 			{
 				file: './app/cli.js',
-				format: 'es'
+				format: 'es',
+				sourcemap: !production
 			}
 		],
 		plugins

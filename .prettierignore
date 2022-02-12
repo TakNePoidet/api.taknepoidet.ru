@@ -2,3 +2,5 @@ coverage/**
 dist
 *.md
 app
+storage/data/portfolio.json
+submodule/portfolio

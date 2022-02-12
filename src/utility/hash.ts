@@ -3,9 +3,8 @@ import crypto from 'crypto';
 
 export function fileHash(filename: string, algorithm: 'sha1' | 'md5' | 'sha256' | 'sha512' = 'sha1'): Promise<string> {
 	return new Promise((resolve, reject) => {
-		const hash = crypto.createHash(algorithm);
-
 		try {
+			const hash = crypto.createHash(algorithm);
 			const s = fs.createReadStream(filename);
 
 			s.on('data', (data) => {
@@ -15,7 +14,7 @@ export function fileHash(filename: string, algorithm: 'sha1' | 'md5' | 'sha256' 
 				resolve(hash.digest('hex'));
 			});
 		} catch (error) {
-			reject(new Error('calc fail'));
+			reject(new Error('Ошибка получения хеша файла'));
 		}
 	});
 }

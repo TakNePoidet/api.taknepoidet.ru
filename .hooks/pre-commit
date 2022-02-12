@@ -4,4 +4,3 @@
 set -euo pipefail
 
 npx lint-staged
-npm test

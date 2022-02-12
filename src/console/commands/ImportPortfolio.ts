@@ -2,9 +2,10 @@ import path from 'path';
 import fs from 'fs';
 import yaml from 'yaml';
 import { Command } from 'console-commander';
-import { saveFile } from '../../utility';
 import { ModelSitePortfolio } from '../../models/portfolio';
-import { __dirname, PATH_DATA } from '../../constant';
+import { saveFile } from '../../libraries/storage';
+import { markdownParser } from '../../libraries/markdown';
+import { Constant } from '../../constant';
 
 interface RawSite {
 	slug: string;
@@ -29,7 +30,7 @@ export class ImportPortfolio extends Command {
 
 	async handle() {
 		const portfolio: Record<string, ModelSitePortfolio> = {};
-		const rootPath = path.resolve(__dirname, '../submodule/portfolio/sites');
+		const rootPath = path.resolve(Constant.dirname, '../submodule/portfolio/sites');
 		const sources = fs
 			.readdirSync(rootPath)
 			.filter((item) => item.charAt(0) !== '.')
@@ -46,9 +47,21 @@ export class ImportPortfolio extends Command {
 			const file = fs.readFileSync(ymlFile, 'utf8');
 			const info: Omit<RawSite, 'slug'> = yaml.parse(file);
 
+			const markdownFile = path.join(source, 'index.md');
+
+			if (!fs.readFileSync(markdownFile)) {
+				throw new Error('Нет index.md файла');
+			}
+
+			const markdown = fs.readFileSync(markdownFile).toString();
+			const text = await markdownParser(markdown, {
+				rootDir: source
+			});
+
 			portfolio[slug] = {
 				...info,
 				slug,
+				text,
 				icon: await saveFile(path.join(source, info.icon)),
 				cover: await saveFile(path.join(source, info.cover)),
 				screenshot: await saveFile(path.join(source, info.screenshot))
@@ -56,7 +69,7 @@ export class ImportPortfolio extends Command {
 
 			console.log(info.title);
 		}
-		fs.writeFileSync(path.join(PATH_DATA, 'portfolio.json'), JSON.stringify(portfolio, null, '\t'));
+		fs.writeFileSync(path.join(Constant.PathData, 'portfolio.json'), JSON.stringify(portfolio, null, '\t'));
 		return undefined;
 	}
 }

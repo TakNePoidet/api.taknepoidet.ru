@@ -1,12 +1,12 @@
 import path from 'path';
 import fs from 'fs';
 import { ModelSitePortfolio } from '../models/portfolio';
-import { PATH_DATA } from '../constant';
+import { Constant } from '../constant';
 
 export class PortfolioServices {
 	private get sitesList(): Record<string, ModelSitePortfolio> {
 		try {
-			return JSON.parse(fs.readFileSync(path.join(PATH_DATA, '../data', 'portfolio.json'), 'utf8'));
+			return JSON.parse(fs.readFileSync(path.join(Constant.PathData, '../data', 'portfolio.json'), 'utf8'));
 		} catch (e) {
 			return {};
 		}
