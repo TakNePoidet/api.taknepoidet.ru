@@ -62,7 +62,7 @@ export class ImportPortfolio extends Command {
 				...info,
 				slug,
 				text,
-				icon: await saveFile(path.join(source, info.icon)),
+				icon: await saveFile(path.join(source)),
 				cover: await saveFile(path.join(source, info.cover)),
 				screenshot: await saveFile(path.join(source, info.screenshot))
 			};

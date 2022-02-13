@@ -4,6 +4,12 @@ import crypto from 'crypto';
 export function fileHash(filename: string, algorithm: 'sha1' | 'md5' | 'sha256' | 'sha512' = 'sha1'): Promise<string> {
 	return new Promise((resolve, reject) => {
 		try {
+			if (!fs.existsSync(filename)) {
+				reject(new Error('Файл не найден'));
+			}
+			if (!fs.statSync(filename).isFile()) {
+				reject(new Error('Не является файлом'));
+			}
 			const hash = crypto.createHash(algorithm);
 			const s = fs.createReadStream(filename);
 
@@ -21,4 +27,7 @@ export function fileHash(filename: string, algorithm: 'sha1' | 'md5' | 'sha256' 
 
 export function encodeBase64url(str: string): string {
 	return Buffer.from(str, 'utf8').toString('base64');
+}
+export function decodeBase64url(str: string): string {
+	return Buffer.from(str, 'base64').toString('utf8');
 }

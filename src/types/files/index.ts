@@ -1,5 +1,5 @@
 export interface File {
-	link: string;
+	path: string;
 }
 
 export interface FileImage extends File {

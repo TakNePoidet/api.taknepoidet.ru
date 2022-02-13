@@ -28,7 +28,7 @@ export class Constant {
 		return process.env.STORAGE_DOMAIN ?? 'http://localhost:5551';
 	}
 
-	static get StorageJVTKey(): string {
-		return process.env.STORAGE_JVT_KEY || 'key';
+	static get StorageJWTKey(): string {
+		return process.env.StorageJWTKey || 'key';
 	}
 }

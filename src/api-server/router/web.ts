@@ -1,5 +1,6 @@
 import { Router } from 'fastify-route-group';
 import { FastifyInstance, FastifyReply } from 'fastify';
+import { StorageController } from '../controllers/storage-controller';
 import { SocialController } from '../controllers/social-controller';
 import { PortfolioController } from '../controllers/portfolio-controller';
 import { ApiExceptions } from '../../exceptions/api-exceptions';
@@ -24,6 +25,8 @@ function errorHandler(error: Error | ApiExceptions, _, reply: FastifyReply) {
 
 export function register(server: FastifyInstance): void {
 	const router = new Router(server);
+
+	router.get('storage/*', { errorHandler }, StorageController.files);
 
 	router.namespace('methods', () => {
 		router.prefix('social.', () => {
